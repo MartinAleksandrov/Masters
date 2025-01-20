@@ -20,12 +20,23 @@ public class Main {
                 "Content-Type: text/html" + NEW_LINE + NEW_LINE +
                 body + NEW_LINE + NEW_LINE;
     }
+    public  static  String sdfsf(){
+
+        return  "sdf";
+    }
 
     public static void main(String[] args) throws IOException {
 
         ServerSocket serverSocket = new ServerSocket(1423);
 
         while(serverSocket.isBound()){
+
+            //Извикване на метод кайто претърсва всички АНОТИРАНИ класове,
+            // от приложението.
+
+
+
+            //Сървъра който парсва HTTP заявките
             Socket clientSocket = serverSocket.accept();
 
             InputStream request   = clientSocket.getInputStream();
@@ -34,7 +45,7 @@ public class Main {
             //1.Обработваме входните данни, които идват от заявката
             InputStreamReader reader = new InputStreamReader(request);
 
-            //2.Опаковаме нашеят четец в допълнителен буферен четец
+            //2.Опаковаме нашият четец в допълнителен буферен четец
             BufferedReader httpRequestReader = new BufferedReader(reader);
 
             //3.Изчитане на заявката, ред по ред
