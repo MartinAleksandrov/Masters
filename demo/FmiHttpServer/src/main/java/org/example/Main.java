@@ -2,6 +2,7 @@ package org.example;
 
 import org.example.controllers.CustomerController;
 import org.example.controllers.HomeController;
+import org.example.system.ApplicationLoader;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -20,10 +21,6 @@ public class Main {
                 "Content-Type: text/html" + NEW_LINE + NEW_LINE +
                 body + NEW_LINE + NEW_LINE;
     }
-    public  static  String sdfsf(){
-
-        return  "sdf";
-    }
 
     public static void main(String[] args) throws IOException {
 
@@ -33,7 +30,8 @@ public class Main {
 
             //Извикване на метод кайто претърсва всички АНОТИРАНИ класове,
             // от приложението.
-
+            ApplicationLoader loader = new ApplicationLoader();
+            loader.findAllClasses("org.example");
 
 
             //Сървъра който парсва HTTP заявките
