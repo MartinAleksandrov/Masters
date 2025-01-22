@@ -5,6 +5,7 @@ import org.example.controllers.HomeController;
 import org.example.system.ApplicationLoader;
 
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.Buffer;
@@ -22,7 +23,7 @@ public class Main {
                 body + NEW_LINE + NEW_LINE;
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
 
         ServerSocket serverSocket = new ServerSocket(1423);
 
@@ -62,19 +63,7 @@ public class Main {
             }
 
             //4.Създаване на междинен интерпретатор на заявките
-            String controllerMessage = "Controller not found";
-
-            if (httpMethod.equals("GET") && httpEndPoint.equals("/home")) {
-
-                HomeController homeController = new HomeController();
-                controllerMessage = homeController.Index();
-            }
-
-            if (httpMethod.equals("GET") && httpEndPoint.equals("/customer")) {
-
-                CustomerController customerController = new CustomerController();
-                controllerMessage = customerController.Index();
-            }
+            String controllerMessage =  loader.executeController(httpMethod,httpEndPoint);
 
             String message = buildHTTPResponse(controllerMessage);
             response.write(message.getBytes());

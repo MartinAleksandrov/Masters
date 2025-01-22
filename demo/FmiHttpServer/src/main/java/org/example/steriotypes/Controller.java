@@ -8,4 +8,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Controller {
+
+    String method() default "GET";
+    String endpoint() default "/";
 }

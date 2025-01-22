@@ -3,10 +3,10 @@ package org.example.controllers;
 import org.example.steriotypes.Controller;
 import org.example.steriotypes.GetMapping;
 
-@Controller
+@Controller(method = "GET", endpoint = "/customer")
 public class CustomerController {
 
-    @GetMapping("")
+    @GetMapping("/customer")
     public String Index(){
         return "Customer Info";
     }

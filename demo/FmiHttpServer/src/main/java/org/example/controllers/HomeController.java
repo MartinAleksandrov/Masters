@@ -3,7 +3,7 @@ package org.example.controllers;
 import org.example.steriotypes.Controller;
 import org.example.steriotypes.GetMapping;
 
-@Controller
+@Controller(method = "GET" , endpoint = "/home")
 public class HomeController {
 
     @GetMapping("/home")
