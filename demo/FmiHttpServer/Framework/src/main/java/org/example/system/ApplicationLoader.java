@@ -90,7 +90,7 @@ public class ApplicationLoader {
 
                 Class clazz = Class.forName(fullName);
 
-                if(clazz.isAnnotationPresent(org.example.steriotypes.Controller.class)){
+                if(clazz.isAnnotationPresent(Controller.class)){
 
                     Controller annotation = (Controller) clazz.getAnnotation(Controller.class);
                     String httpMethod = annotation.method();
