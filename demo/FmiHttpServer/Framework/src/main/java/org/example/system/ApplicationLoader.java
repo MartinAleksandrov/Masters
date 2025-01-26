@@ -8,40 +8,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
-import java.util.Objects;
+import org.example.entities.RequestInfo;
 
 public class ApplicationLoader {
-
-    public  static class RequestInfo{
-
-        private  String httpMethod;
-        private  String httpEndPoint;
-
-        public  RequestInfo(String httpMethod, String httpEndPoint){
-
-            this.httpMethod = httpMethod;
-            this.httpEndPoint = httpEndPoint;
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(httpMethod, httpEndPoint);
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-
-            if (obj == null || getClass() != obj.getClass()) {
-                return false;
-            }
-
-            RequestInfo info = (RequestInfo) obj;
-
-            return  Objects.equals(httpEndPoint , httpEndPoint)
-                    && Objects.equals(httpMethod , info.httpMethod);
-        }
-    }
-
 
     private ClassLoader classLoader = ClassLoader.getSystemClassLoader();
 
@@ -85,23 +54,31 @@ public class ApplicationLoader {
 
             if(packageReference.contains(".class")){
 
-                String className = packageReference.replace(".class", "");
-                String fullName = packageName + "." + className;
-
-                Class clazz = Class.forName(fullName);
-
-                if(clazz.isAnnotationPresent(Controller.class)){
-
-                    Controller annotation = (Controller) clazz.getAnnotation(Controller.class);
-                    String httpMethod = annotation.method();
-                    String httpEndPoint = annotation.endpoint();
-
-                    controllerLookupTable.put(
-                            new RequestInfo(httpMethod, httpEndPoint), clazz
-                    );
-
-                }
+                //Тук се парсват класове
             }
         }
+    }
+
+    private  void  classParser(String packageReference, String packageName) throws ClassNotFoundException {
+        String className = packageReference.replace(".class", "");
+        String fullName = packageName + "." + className;
+
+        Class clazz = Class.forName(fullName);
+
+        if(clazz.isAnnotationPresent(Controller.class)){
+
+
+        }
+    }
+
+    private  void parseController(Class clazz){
+
+        Controller annotation = (Controller) clazz.getAnnotation(Controller.class);
+        String httpMethod = annotation.method();
+        String httpEndPoint = annotation.endpoint();
+
+        controllerLookupTable.put(
+                new RequestInfo(httpMethod, httpEndPoint), clazz
+        );
     }
 }
